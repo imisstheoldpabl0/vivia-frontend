@@ -40,7 +40,7 @@ export function Toggle({ options, value, onChange, className }: ToggleProps) {
           key={option.value}
           onClick={() => onChange(option.value)}
           className={cn(
-            'relative z-10 px-4 sm:px-6 py-2 text-sm font-medium rounded-full transition-colors duration-150',
+            'relative z-10 px-4 py-2 text-sm font-medium rounded-full transition-colors duration-150',
             value === option.value ? 'text-text' : 'text-muted hover:text-text'
           )}
         >

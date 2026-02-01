@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { SavedPropertiesProvider } from '@/context/SavedPropertiesContext';
 import { FilterProvider } from '@/context/FilterContext';
@@ -24,6 +25,7 @@ export default function RootLayout({
             {children}
           </FilterProvider>
         </SavedPropertiesProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
