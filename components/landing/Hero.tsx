@@ -50,18 +50,18 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-white tracking-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white tracking-tight mb-4 sm:mb-6">
             Encuentra tu hogar
             <br />
             <span className="text-accent">en Madrid</span>
           </h1>
-          <p className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-12">
+          <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-8 sm:mb-12 px-2">
             Descubre apartamentos, casas y estudios en los mejores barrios de la ciudad.
             Tu nuevo hogar te está esperando.
           </p>
@@ -80,21 +80,21 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 flex items-center justify-center gap-12"
+          className="mt-12 sm:mt-16 flex items-center justify-center gap-6 sm:gap-8 md:gap-12 px-4"
         >
           <div className="text-center">
-            <div className="text-3xl font-semibold text-white">2.500+</div>
-            <div className="text-sm text-white/60">Propiedades</div>
+            <div className="text-2xl sm:text-3xl font-semibold text-white">2.500+</div>
+            <div className="text-xs sm:text-sm text-white/60">Propiedades</div>
           </div>
-          <div className="w-px h-12 bg-white/20" />
+          <div className="w-px h-10 sm:h-12 bg-white/20" />
           <div className="text-center">
-            <div className="text-3xl font-semibold text-white">25</div>
-            <div className="text-sm text-white/60">Barrios</div>
+            <div className="text-2xl sm:text-3xl font-semibold text-white">25</div>
+            <div className="text-xs sm:text-sm text-white/60">Barrios</div>
           </div>
-          <div className="w-px h-12 bg-white/20" />
+          <div className="w-px h-10 sm:h-12 bg-white/20" />
           <div className="text-center">
-            <div className="text-3xl font-semibold text-white">98%</div>
-            <div className="text-sm text-white/60">Satisfacción</div>
+            <div className="text-2xl sm:text-3xl font-semibold text-white">98%</div>
+            <div className="text-xs sm:text-sm text-white/60">Satisfacción</div>
           </div>
         </motion.div>
       </div>

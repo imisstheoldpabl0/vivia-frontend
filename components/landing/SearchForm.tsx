@@ -46,7 +46,7 @@ export function SearchForm() {
       >
         <div
           className={`
-            flex items-center gap-3 bg-white rounded-full p-2 pl-6 shadow-xl
+            flex items-center gap-2 sm:gap-3 bg-white rounded-full p-2 pl-4 sm:pl-6 shadow-xl
             transition-all duration-200
             ${isFocused ? 'ring-2 ring-accent ring-offset-2 ring-offset-transparent' : ''}
           `}
@@ -58,7 +58,7 @@ export function SearchForm() {
             viewBox="0 0 24 24"
             strokeWidth={2}
             stroke="currentColor"
-            className="w-5 h-5 text-muted"
+            className="w-4 h-4 sm:w-5 sm:h-5 text-muted flex-shrink-0"
           >
             <path
               strokeLinecap="round"
@@ -69,29 +69,29 @@ export function SearchForm() {
 
           <input
             type="text"
-            placeholder="Busca por barrio, zona o dirección..."
+            placeholder="Busca por barrio..."
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            className="flex-1 bg-transparent text-text placeholder:text-muted outline-none text-base py-2"
+            className="flex-1 bg-transparent text-text placeholder:text-muted outline-none text-sm sm:text-base py-2 min-w-0"
           />
 
-          <Button type="submit" size="md" className="rounded-full px-8">
+          <Button type="submit" size="md" className="rounded-full px-4 sm:px-6 md:px-8 flex-shrink-0">
             Buscar
           </Button>
         </div>
       </motion.div>
 
       {/* Popular searches */}
-      <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-        <span className="text-white/50 text-sm">Popular:</span>
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-2 px-2">
+        <span className="text-white/50 text-xs sm:text-sm">Popular:</span>
         {['Salamanca', 'Chamberí', 'Malasaña', 'Retiro'].map((neighborhood) => (
           <button
             key={neighborhood}
             type="button"
             onClick={() => setLocation(neighborhood)}
-            className="px-3 py-1 text-sm text-white/70 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+            className="px-2.5 sm:px-3 py-1 text-xs sm:text-sm text-white/70 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors"
           >
             {neighborhood}
           </button>
