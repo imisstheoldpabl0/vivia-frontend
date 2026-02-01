@@ -23,7 +23,7 @@ export function ViewToggle({ view, onChange }: ViewToggleProps) {
       <button
         onClick={() => onChange('grid')}
         className={cn(
-          'relative z-10 flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-colors',
+          'relative z-10 flex items-center gap-1.5 px-3 sm:px-4 py-2 text-sm font-medium rounded-full transition-colors',
           view === 'grid' ? 'text-text' : 'text-muted hover:text-text'
         )}
       >
@@ -44,7 +44,7 @@ export function ViewToggle({ view, onChange }: ViewToggleProps) {
       <button
         onClick={() => onChange('map')}
         className={cn(
-          'relative z-10 flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-colors',
+          'relative z-10 flex items-center gap-1.5 px-3 sm:px-4 py-2 text-sm font-medium rounded-full transition-colors',
           view === 'map' ? 'text-text' : 'text-muted hover:text-text'
         )}
       >

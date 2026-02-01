@@ -4,6 +4,7 @@
 
 :root {
   --color-bg: #FAFAFA;
+  --color-bg-dark: #0f172a;
   --color-surface: #FFFFFF;
   --color-text: #1A1A1A;
   --color-muted: #6B7280;
@@ -25,12 +26,17 @@ body {
   overflow-x: hidden;
   background-color: var(--color-bg);
   color: var(--color-text);
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 /* Custom scrollbar */
@@ -90,6 +96,11 @@ img[data-loading="true"] {
   text-wrap: balance;
 }
 
+/* Fix mobile viewport height */
+html {
+  height: -webkit-fill-available;
+}
+
 /* Animation utilities */
 @layer utilities {
   .transition-quick {
@@ -105,5 +116,11 @@ img[data-loading="true"] {
   .transition-smooth {
     transition-duration: 300ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .min-h-screen-mobile {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    min-height: 100dvh;
   }
 }
