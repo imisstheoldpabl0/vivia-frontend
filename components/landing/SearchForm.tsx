@@ -85,13 +85,13 @@ export function SearchForm() {
 
       {/* Popular searches */}
       <div className="mt-4 flex flex-wrap items-center justify-center gap-2 px-2">
-        <span className="text-white/50 text-xs sm:text-sm">Popular:</span>
+        <span className="text-muted text-xs sm:text-sm">Popular:</span>
         {['Salamanca', 'Chamberí', 'Malasaña', 'Retiro'].map((neighborhood) => (
           <button
             key={neighborhood}
             type="button"
             onClick={() => setLocation(neighborhood)}
-            className="px-2.5 sm:px-3 py-1 text-xs sm:text-sm text-white/70 hover:text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+            className="px-2.5 sm:px-3 py-1 text-xs sm:text-sm text-muted hover:text-text bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
           >
             {neighborhood}
           </button>

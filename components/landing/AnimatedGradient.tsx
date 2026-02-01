@@ -1,41 +1,52 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 export function AnimatedGradient() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
 
-  // Transform scroll progress to gradient position
-  const y1 = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
-  const y2 = useTransform(scrollYProgress, [0, 1], ['20%', '60%']);
-  const y3 = useTransform(scrollYProgress, [0, 1], ['40%', '90%']);
-  const scale1 = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.2, 1.1]);
-  const scale2 = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.3, 1.2]);
-  const opacity1 = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.4, 0.6, 0.5, 0.3]);
-  const opacity2 = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.3, 0.5, 0.6, 0.4]);
+  // Smooth spring physics for scroll-based movement
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 50,
+    damping: 20,
+    restDelta: 0.001,
+  });
+
+  // Transform scroll for parallax with spring physics
+  const y1 = useTransform(smoothProgress, [0, 1], ['0%', '80%']);
+  const y2 = useTransform(smoothProgress, [0, 1], ['0%', '50%']);
+  const y3 = useTransform(smoothProgress, [0, 1], ['0%', '120%']);
+  const y4 = useTransform(smoothProgress, [0, 1], ['0%', '70%']);
+  const y5 = useTransform(smoothProgress, [0, 1], ['0%', '90%']);
+
+  // Horizontal movement based on scroll
+  const x1 = useTransform(smoothProgress, [0, 0.5, 1], ['0%', '15%', '-10%']);
+  const x2 = useTransform(smoothProgress, [0, 0.5, 1], ['0%', '-20%', '10%']);
+  const x3 = useTransform(smoothProgress, [0, 0.5, 1], ['0%', '25%', '5%']);
+
+  // Scale based on scroll
+  const scale1 = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.3, 1.1]);
+  const scale2 = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.2, 1.4]);
 
   return (
     <div
-      ref={containerRef}
-      className="fixed inset-0 overflow-hidden pointer-events-none"
+      className="fixed inset-0 overflow-hidden pointer-events-none bg-white"
       style={{ zIndex: 0 }}
     >
-      {/* Base gradient - white at top fading to light orange */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-orange-50/80" />
-
-      {/* Animated blurry orbs */}
+      {/* Large orange particle - top right */}
       <motion.div
-        className="absolute -right-32 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-orange-200/60 to-orange-300/40"
+        className="absolute -top-20 -right-20 w-[400px] h-[400px] rounded-full"
         style={{
-          top: y1,
+          y: y1,
+          x: x1,
           scale: scale1,
-          opacity: opacity1,
-          filter: 'blur(80px)',
+          background: 'radial-gradient(circle, rgba(249, 115, 22, 0.35) 0%, rgba(249, 115, 22, 0) 70%)',
+          filter: 'blur(60px)',
         }}
         animate={{
-          x: [0, 20, -10, 0],
+          x: [0, 50, -30, 20, 0],
+          y: [0, 40, -20, 30, 0],
+          scale: [1, 1.15, 0.95, 1.1, 1],
         }}
         transition={{
           duration: 20,
@@ -44,33 +55,19 @@ export function AnimatedGradient() {
         }}
       />
 
+      {/* Medium orange particle - left side */}
       <motion.div
-        className="absolute -left-48 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-orange-100/50 to-amber-200/40"
+        className="absolute top-[25%] -left-32 w-[350px] h-[350px] rounded-full"
         style={{
-          top: y2,
-          scale: scale2,
-          opacity: opacity2,
-          filter: 'blur(100px)',
+          y: y2,
+          x: x2,
+          background: 'radial-gradient(circle, rgba(251, 146, 60, 0.4) 0%, rgba(251, 146, 60, 0) 70%)',
+          filter: 'blur(50px)',
         }}
         animate={{
-          x: [0, -30, 20, 0],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-
-      <motion.div
-        className="absolute right-1/4 w-[400px] h-[400px] rounded-full bg-gradient-to-bl from-orange-200/40 to-rose-100/30"
-        style={{
-          top: y3,
-          filter: 'blur(90px)',
-        }}
-        animate={{
-          x: [0, 40, -20, 0],
-          scale: [1, 1.1, 0.95, 1],
+          x: [0, 60, -20, 40, 0],
+          y: [0, -30, 50, -10, 0],
+          scale: [1, 1.2, 1.05, 1.15, 1],
         }}
         transition={{
           duration: 18,
@@ -79,11 +76,87 @@ export function AnimatedGradient() {
         }}
       />
 
-      {/* Subtle noise overlay for texture */}
-      <div
-        className="absolute inset-0 opacity-[0.015]"
+      {/* Floating center particle */}
+      <motion.div
+        className="absolute top-[45%] left-[35%] w-[280px] h-[280px] rounded-full"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          y: y3,
+          x: x3,
+          scale: scale2,
+          background: 'radial-gradient(circle, rgba(249, 115, 22, 0.28) 0%, rgba(249, 115, 22, 0) 70%)',
+          filter: 'blur(45px)',
+        }}
+        animate={{
+          x: [0, -40, 60, -30, 40, 0],
+          y: [0, 50, -30, 40, -20, 0],
+          scale: [1, 1.25, 0.9, 1.15, 1.05, 1],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+
+      {/* Large particle - bottom right */}
+      <motion.div
+        className="absolute top-[60%] -right-16 w-[450px] h-[450px] rounded-full"
+        style={{
+          y: y4,
+          x: x1,
+          background: 'radial-gradient(circle, rgba(253, 186, 116, 0.45) 0%, rgba(253, 186, 116, 0) 70%)',
+          filter: 'blur(70px)',
+        }}
+        animate={{
+          x: [0, -40, 30, -50, 20, 0],
+          y: [0, 30, -40, 20, -30, 0],
+          scale: [1, 1.1, 1.2, 0.95, 1.1, 1],
+        }}
+        transition={{
+          duration: 22,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+
+      {/* Extra particle - lower left */}
+      <motion.div
+        className="absolute top-[75%] -left-20 w-[320px] h-[320px] rounded-full"
+        style={{
+          y: y5,
+          x: x2,
+          background: 'radial-gradient(circle, rgba(249, 115, 22, 0.32) 0%, rgba(249, 115, 22, 0) 70%)',
+          filter: 'blur(55px)',
+        }}
+        animate={{
+          x: [0, 50, -30, 60, -20, 0],
+          y: [0, -40, 30, -20, 40, 0],
+          scale: [1, 1.12, 1.05, 1.18, 0.98, 1],
+        }}
+        transition={{
+          duration: 17,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+
+      {/* Small accent particle - mid right */}
+      <motion.div
+        className="absolute top-[35%] right-[15%] w-[200px] h-[200px] rounded-full"
+        style={{
+          y: y2,
+          background: 'radial-gradient(circle, rgba(249, 115, 22, 0.22) 0%, rgba(249, 115, 22, 0) 70%)',
+          filter: 'blur(40px)',
+        }}
+        animate={{
+          x: [0, -35, 45, -25, 35, 0],
+          y: [0, 35, -45, 25, -35, 0],
+          scale: [1, 1.3, 0.85, 1.2, 1.1, 1],
+        }}
+        transition={{
+          duration: 13,
+          repeat: Infinity,
+          ease: 'easeInOut',
         }}
       />
     </div>

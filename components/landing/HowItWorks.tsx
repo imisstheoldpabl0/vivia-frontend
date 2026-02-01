@@ -71,14 +71,14 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="py-10 sm:py-14 pb-16 sm:pb-20">
+    <section className="py-6 sm:py-10 pb-12 sm:pb-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-8 sm:mb-10"
+          className="text-center mb-6 sm:mb-8"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-text mb-3">
             Cómo funciona
